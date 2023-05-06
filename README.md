@@ -1,2 +1,2 @@
-# advent-of-code
+# Solving Advent of Code in Go
  
