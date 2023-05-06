@@ -25,26 +25,26 @@ const (
 
 func main() {
 
-	// Read the file and sum up the scores per game
+	// Read the file and calculate the scores per strategy
 	file, err := os.Open("./2022/day02/input.txt")
 	if err != nil {
 		fmt.Println(err)
 	}
 	scanner := bufio.NewScanner(file)
 
-	// Calculate the scores per strategy
-	totalScorePartOne := 0
-	totalScorePartTwo := 0
 	letters := []string{}
+	scorePartOne := 0
+	scorePartTwo := 0
 	for scanner.Scan() {
 		letters = strings.Split(scanner.Text(), " ")
-		totalScorePartOne = totalScorePartOne + calculateScorePartOne(letters[0], letters[1])
-		totalScorePartTwo = totalScorePartTwo + calculateScorePartTwo(letters[0], letters[1])
+		scorePartOne = scorePartOne + calculateScorePartOne(letters[0], letters[1])
+		scorePartTwo = scorePartTwo + calculateScorePartTwo(letters[0], letters[1])
 	}
 	_ = file.Close()
 
-	fmt.Println("Total score according to strategy guide in Part One", totalScorePartOne)
-	fmt.Println("Total score according to strategy guide in Part Two", totalScorePartTwo)
+	// Print results
+	fmt.Println("Total score according to strategy in Part One", scorePartOne)
+	fmt.Println("Total score according to strategy in Part Two", scorePartTwo)
 }
 
 func calculateScorePartOne(hisLetter string, myLetter string) int {
