@@ -54,7 +54,6 @@ func main() {
 	sort.Slice(elves, func(i, j int) bool {
 		return elves[i].calories > elves[j].calories
 	})
-
 	sumCalories := 0
 	for i := 0; i < 3; i++ {
 		sumCalories = sumCalories + elves[i].calories
