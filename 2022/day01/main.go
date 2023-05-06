@@ -5,10 +5,6 @@ import (
 	"sort"
 )
 
-/*
-	Advent of Code 2022 - Day 01 - Calorie Counting
-
-*/
 import (
 	"bufio"
 	"log"
