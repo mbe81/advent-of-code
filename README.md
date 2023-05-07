@@ -1,2 +1,3 @@
-# Solving Advent of Code in Go
- 
+# Advent of Code
+
+Solving the Advent of Code challenges in Go
