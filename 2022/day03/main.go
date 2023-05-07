@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/mbe81/advent-of-code/2022/util"
+	"github.com/mbe81/advent-of-code/util"
 	"strings"
 )
 
