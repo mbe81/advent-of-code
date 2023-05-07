@@ -1,9 +1,8 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
-	"os"
+	"github.com/mbe81/advent-of-code/2022/util"
 	"strings"
 )
 
@@ -26,28 +25,23 @@ const (
 func main() {
 
 	// Read the file and calculate the scores per strategy
-	file, err := os.Open("./2022/day02/input.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	scanner := bufio.NewScanner(file)
+	lines := util.ReadFile("./2022/day02/input.txt")
 
-	letters := []string{}
+	var letters []string
 	scorePartOne := 0
 	scorePartTwo := 0
-	for scanner.Scan() {
-		letters = strings.Split(scanner.Text(), " ")
-		scorePartOne = scorePartOne + calculateScorePartOne(letters[0], letters[1])
-		scorePartTwo = scorePartTwo + calculateScorePartTwo(letters[0], letters[1])
+	for _, line := range lines {
+		letters = strings.Split(line, " ")
+		scorePartOne = scorePartOne + calcScorePartOne(letters[0], letters[1])
+		scorePartTwo = scorePartTwo + calcScorePartTwo(letters[0], letters[1])
 	}
-	_ = file.Close()
 
 	// Print results
 	fmt.Println("Total score according to strategy in Part One", scorePartOne)
 	fmt.Println("Total score according to strategy in Part Two", scorePartTwo)
 }
 
-func calculateScorePartOne(hisLetter string, myLetter string) int {
+func calcScorePartOne(hisLetter string, myLetter string) int {
 
 	var hisChoice choice
 	switch hisLetter {
@@ -100,7 +94,7 @@ func calculateScorePartOne(hisLetter string, myLetter string) int {
 
 }
 
-func calculateScorePartTwo(hisLetter string, myLetter string) int {
+func calcScorePartTwo(hisLetter string, myLetter string) int {
 
 	var hisChoice choice
 	switch hisLetter {

@@ -2,13 +2,12 @@ package main
 
 import (
 	"fmt"
+	"github.com/mbe81/advent-of-code/2022/util"
 	"sort"
 )
 
 import (
-	"bufio"
 	"log"
-	"os"
 	"strconv"
 )
 
@@ -21,26 +20,20 @@ var elves []elf
 func main() {
 
 	// Read the file and sum up calories per elf
-	file, err := os.Open("./2022/day01/input.txt")
-	if err != nil {
-		fmt.Println(err)
-	}
-	scanner := bufio.NewScanner(file)
-
+	lines := util.ReadFile("./2022/day01/input.txt")
 	calories := 0
-	for scanner.Scan() {
-		if scanner.Text() == "" {
+	for _, line := range lines {
+		if line == "" {
 			elves = append(elves, elf{calories: calories})
 			calories = 0
 		} else {
-			newCalories, err := strconv.Atoi(scanner.Text())
+			newCalories, err := strconv.Atoi(line)
 			if err != nil {
 				log.Fatal("Invalid input")
 			}
 			calories = calories + newCalories
 		}
 	}
-	_ = file.Close()
 
 	// Print the number of calories carried by the elf with the most calories
 	for _, elf := range elves {
