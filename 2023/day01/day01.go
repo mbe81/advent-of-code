@@ -2,12 +2,13 @@ package day01
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/advent-of-code/2023/util"
 )
 
 func Run() {
-	input, err := util.ReadLines("./day01/input.txt")
+	input, err := util.ReadLines("./day01/input/puzzle.txt")
 	if err != nil {
 		fmt.Printf("Error reading file: %e", err)
 		return
@@ -28,7 +29,6 @@ func Part1(input []string) int {
 		calibrationValue += firstNumber*10 + lastNumber
 	}
 
-	fmt.Println("Calibration Value: ", calibrationValue)
 	return calibrationValue
 }
 
@@ -37,47 +37,18 @@ func Part2(inputLines []string) int {
 
 	for _, l := range inputLines {
 
-		for i := 0; i < len(l); i++ {
-
-			// Only replace the first character of the written number with the real number so eightwothree will convert
-			// to 8igh23three instead of 8wo3 and all possible numbers are kept.
-
-			if len(l)-i >= 3 {
-				switch l[i : i+3] {
-				case "one":
-					l = l[:i] + "1" + l[i+1:]
-				case "two":
-					l = l[:i] + "2" + l[i+1:]
-				case "six":
-					l = l[:i] + "6" + l[i+1:]
-				}
-			}
-
-			if len(l)-i >= 4 {
-				switch l[i : i+4] {
-				case "four":
-					l = l[:i] + "4" + l[i+1:]
-				case "five":
-					l = l[:i] + "5" + l[i+1:]
-				case "nine":
-					l = l[:i] + "9" + l[i+1:]
-				}
-			}
-
-			if len(l)-i >= 5 {
-				switch l[i : i+5] {
-				case "three":
-					l = l[:i] + "3" + l[i+1:]
-				case "seven":
-					l = l[:i] + "7" + l[i+1:]
-				case "eight":
-					l = l[:i] + "8" + l[i+1:]
-				}
-			}
-
-		}
+		l = strings.Replace(l, "one", "one1one", -1)
+		l = strings.Replace(l, "two", "two2two", -1)
+		l = strings.Replace(l, "three", "three3three", -1)
+		l = strings.Replace(l, "four", "four4four", -1)
+		l = strings.Replace(l, "five", "five5five", -1)
+		l = strings.Replace(l, "six", "six6six", -1)
+		l = strings.Replace(l, "seven", "seven7seven", -1)
+		l = strings.Replace(l, "eight", "eight8eight", -1)
+		l = strings.Replace(l, "nine", "nine9nine", -1)
 
 		firstNumber, lastNumber := getFirstAndLastNumber(l)
+
 		calibrationValue += firstNumber*10 + lastNumber
 	}
 
