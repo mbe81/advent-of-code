@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/advent-of-code/2023/day01"
+	"github.com/advent-of-code/2023/day02"
 )
 
 func main() {
@@ -16,6 +17,8 @@ func main() {
 	switch *day {
 	case 1:
 		day01.Run()
+	case 2:
+		day02.Run()
 	default:
 		fmt.Println("Use 'go run main.go -day <day> to run a day")
 	}
