@@ -38,7 +38,7 @@ func Part1(input []string) int {
 
 	for _, l := range input {
 
-		game := parseGame(l)
+		game := parseGameString(l)
 		var gameImpossible bool
 
 		for _, cubeSet := range game.CubeSets {
@@ -60,7 +60,7 @@ func Part2(input []string) int {
 
 	for _, l := range input {
 
-		game := parseGame(l)
+		game := parseGameString(l)
 		var reqRedCubes, reqGreenCubes, reqBlueCubes int
 
 		for _, cubeSet := range game.CubeSets {
@@ -81,7 +81,7 @@ func Part2(input []string) int {
 	return sumPower
 }
 
-func parseGame(s string) Game {
+func parseGameString(s string) Game {
 
 	var game Game
 
