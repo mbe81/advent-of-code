@@ -32,10 +32,10 @@ func Part1(input []string) int {
 	return calibrationValue
 }
 
-func Part2(inputLines []string) int {
+func Part2(input []string) int {
 	var calibrationValue int
 
-	for _, l := range inputLines {
+	for _, l := range input {
 
 		l = strings.Replace(l, "one", "one1one", -1)
 		l = strings.Replace(l, "two", "two2two", -1)
