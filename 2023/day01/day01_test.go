@@ -10,7 +10,7 @@ import (
 func TestPart1(t *testing.T) {
 	input, err := util.ReadLines("./day01/input/example-part1.txt")
 	if err != nil {
-		fmt.Printf("Error reading file: %e", err)
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 
@@ -25,12 +25,7 @@ func TestPart1(t *testing.T) {
 func TestPart2(t *testing.T) {
 	input, err := util.ReadLines("./day01/input/example-part2.txt")
 	if err != nil {
-		fmt.Printf("Error reading file: %e", err)
-		return
-	}
-
-	if err != nil {
-		fmt.Printf("Error reading file: %e", err)
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 

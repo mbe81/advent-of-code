@@ -10,7 +10,7 @@ import (
 func Run() {
 	input, err := util.ReadLines("./day01/input/puzzle.txt")
 	if err != nil {
-		fmt.Printf("Error reading file: %e", err)
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 

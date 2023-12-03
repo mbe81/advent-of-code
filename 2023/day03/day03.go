@@ -11,14 +11,14 @@ import (
 func Run() {
 	input, err := util.ReadLines("./day03/input/puzzle.txt")
 	if err != nil {
-		fmt.Printf("Error reading file: %e", err)
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 
 	fmt.Println("Running Day 3, Part 1")
 	fmt.Println("Result: ", Part1(input))
 
-	fmt.Println("Running Day 2, Part 2")
+	fmt.Println("Running Day 3, Part 2")
 	fmt.Println("Result: ", Part2(input))
 }
 
@@ -108,18 +108,18 @@ func getPartNumbers(input []string) []PartNumber {
 	var partNumbers []PartNumber
 
 	re := regexp.MustCompile(`\d+`)
-	for lineNum, l := range input {
+	for lineNum, lineStr := range input {
 
-		numbers := re.FindAllString(l, -1)
-		indexes := re.FindAllStringIndex(l, -1)
+		numbers := re.FindAllString(lineStr, -1)
+		indexes := re.FindAllStringIndex(lineStr, -1)
 
-		for numPos, valueString := range numbers {
-			valueNum, _ := strconv.Atoi(valueString)
+		for i, number := range numbers {
+			value, _ := strconv.Atoi(number)
 			partNumbers = append(partNumbers, PartNumber{
 				Line:     lineNum,
-				StartPos: indexes[numPos][0],
-				EndPos:   indexes[numPos][1] - 1,
-				Value:    valueNum,
+				StartPos: indexes[i][0],
+				EndPos:   indexes[i][1] - 1,
+				Value:    value,
 			})
 		}
 	}

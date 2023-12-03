@@ -11,7 +11,7 @@ import (
 func Run() {
 	input, err := util.ReadLines("./day02/input/puzzle.txt")
 	if err != nil {
-		fmt.Printf("Error reading file: %e", err)
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 
