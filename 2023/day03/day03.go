@@ -2,6 +2,7 @@ package day03
 
 import (
 	"fmt"
+	"regexp"
 	"strconv"
 
 	"github.com/advent-of-code/2023/util"
@@ -22,10 +23,10 @@ func Run() {
 }
 
 type PartNumber struct {
-	Line   int
-	Pos    int
-	Length int
-	Value  int
+	Line     int
+	StartPos int
+	EndPos   int
+	Value    int
 }
 
 func Part1(input []string) int {
@@ -36,8 +37,8 @@ func Part1(input []string) int {
 	for _, partNumber := range partNumbers {
 
 		// Determine coordinates for adjacent symbols
-		xStart := max(partNumber.Pos-1, 0)
-		xEnd := min(partNumber.Pos+partNumber.Length, len(input[0])-1)
+		xStart := max(partNumber.StartPos-1, 0)
+		xEnd := min(partNumber.EndPos, len(input[0])-1)
 
 		yStart := max(partNumber.Line-1, 0)
 		yEnd := min(partNumber.Line+1, len(input)-1)
@@ -73,8 +74,8 @@ func Part2(input []string) int {
 	for _, partNumber := range partNumbers {
 
 		// Determine coordinates for adjacent symbols
-		xStart := max(partNumber.Pos-1, 0)
-		xEnd := min(partNumber.Pos+partNumber.Length, len(input[0])-1)
+		xStart := max(partNumber.StartPos-1, 0)
+		xEnd := min(partNumber.EndPos, len(input[0])-1)
 
 		yStart := max(partNumber.Line-1, 0)
 		yEnd := min(partNumber.Line+1, len(input)-1)
@@ -105,36 +106,21 @@ func Part2(input []string) int {
 
 func getPartNumbers(input []string) []PartNumber {
 	var partNumbers []PartNumber
-	var currentPart *PartNumber = nil
 
-	for y, l := range input {
-		for x, c := range l {
-			if c >= 48 && c <= 57 {
-				// Valid numeric character
-				if currentPart == nil {
-					// New number, set line and pos
-					currentPart = &PartNumber{
-						Line: y,
-						Pos:  x,
-					}
-				}
-			} else {
-				// Invalid numeric character
-				if currentPart != nil {
-					// End of number, set length and value, add to partNumbers
-					currentPart.Length = x - currentPart.Pos
-					currentPart.Value, _ = strconv.Atoi(l[currentPart.Pos:x])
-					partNumbers = append(partNumbers, *currentPart)
-					currentPart = nil
-				}
-			}
-		}
-		if currentPart != nil {
-			// End of line, set length and value, add to partNumbers
-			currentPart.Length = len(l[currentPart.Pos:])
-			currentPart.Value, _ = strconv.Atoi(l[currentPart.Pos:])
-			partNumbers = append(partNumbers, *currentPart)
-			currentPart = nil
+	re := regexp.MustCompile(`\d+`)
+	for lineNum, l := range input {
+
+		numbers := re.FindAllString(l, -1)
+		positions := re.FindAllStringIndex(l, -1)
+
+		for numPos, valueString := range numbers {
+			valueNum, _ := strconv.Atoi(valueString)
+			partNumbers = append(partNumbers, PartNumber{
+				Line:     lineNum,
+				StartPos: positions[numPos][0],
+				EndPos:   positions[numPos][1],
+				Value:    valueNum,
+			})
 		}
 	}
 
