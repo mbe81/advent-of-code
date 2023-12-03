@@ -38,7 +38,7 @@ func Part1(input []string) int {
 
 		// Determine coordinates for adjacent symbols
 		xStart := max(partNumber.StartPos-1, 0)
-		xEnd := min(partNumber.EndPos, len(input[0])-1)
+		xEnd := min(partNumber.EndPos+1, len(input[0])-1)
 
 		yStart := max(partNumber.Line-1, 0)
 		yEnd := min(partNumber.Line+1, len(input)-1)
@@ -75,7 +75,7 @@ func Part2(input []string) int {
 
 		// Determine coordinates for adjacent symbols
 		xStart := max(partNumber.StartPos-1, 0)
-		xEnd := min(partNumber.EndPos, len(input[0])-1)
+		xEnd := min(partNumber.EndPos+1, len(input[0])-1)
 
 		yStart := max(partNumber.Line-1, 0)
 		yEnd := min(partNumber.Line+1, len(input)-1)
@@ -111,14 +111,14 @@ func getPartNumbers(input []string) []PartNumber {
 	for lineNum, l := range input {
 
 		numbers := re.FindAllString(l, -1)
-		positions := re.FindAllStringIndex(l, -1)
+		indexes := re.FindAllStringIndex(l, -1)
 
 		for numPos, valueString := range numbers {
 			valueNum, _ := strconv.Atoi(valueString)
 			partNumbers = append(partNumbers, PartNumber{
 				Line:     lineNum,
-				StartPos: positions[numPos][0],
-				EndPos:   positions[numPos][1],
+				StartPos: indexes[numPos][0],
+				EndPos:   indexes[numPos][1] - 1,
 				Value:    valueNum,
 			})
 		}
