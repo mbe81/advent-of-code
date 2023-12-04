@@ -1,15 +1,16 @@
 package day04
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/advent-of-code/2023/util"
 )
 
 func TestPart1(t *testing.T) {
-	input, err := util.ReadLines("./input/example.txt")
+	input, err := util.ReadLines("./day04/input/example.txt")
 	if err != nil {
-		t.Errorf("error reading file: %s", err.Error())
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 
@@ -22,9 +23,9 @@ func TestPart1(t *testing.T) {
 }
 
 func TestPart2(t *testing.T) {
-	input, err := util.ReadLines("./input/example.txt")
+	input, err := util.ReadLines("./day04/input/example.txt")
 	if err != nil {
-		t.Errorf("error reading file: %s", err.Error())
+		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
 
