@@ -85,7 +85,7 @@ func Part2(input []string) int {
 		temperature := getMappingValue(lightToTemperature, light)
 		humidity := getMappingValue(temperatureToHumidity, temperature)
 		location := getMappingValue(humidityToLocation, humidity)
-		//fmt.Println("seed", seed, "location", location)
+
 		if minLocation == 0 || location <= minLocation {
 			minLocation = location
 		}
