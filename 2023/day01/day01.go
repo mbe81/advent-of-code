@@ -15,8 +15,13 @@ func Run() {
 		return
 	}
 
-	util.PrettyPrint(1, 1, Part1(input), time.Now())
-	util.PrettyPrint(1, 2, Part2(input), time.Now())
+	var start time.Time
+
+	start = time.Now()
+	util.PrettyPrint(1, 1, Part1(input), start)
+
+	start = time.Now()
+	util.PrettyPrint(1, 2, Part2(input), start)
 }
 
 func Part1(input []string) int {

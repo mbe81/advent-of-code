@@ -16,8 +16,13 @@ func Run() {
 		return
 	}
 
-	util.PrettyPrint(5, 1, Part1(input), time.Now())
-	util.PrettyPrint(5, 2, Part2(input), time.Now())
+	var start time.Time
+
+	start = time.Now()
+	util.PrettyPrint(5, 1, Part1(input), start)
+
+	start = time.Now()
+	util.PrettyPrint(5, 2, Part2(input), start)
 }
 
 type Seed struct {
