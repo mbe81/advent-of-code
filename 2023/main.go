@@ -28,6 +28,12 @@ func main() {
 		day04.Run()
 	case 5:
 		day05.Run()
+	case -1:
+		day01.Run()
+		day02.Run()
+		day03.Run()
+		day04.Run()
+		day05.Run()
 	default:
 		fmt.Println("Use 'go run main.go -day <day> to run a day")
 	}
