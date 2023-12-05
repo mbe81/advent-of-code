@@ -15,15 +15,9 @@ func Run() {
 		fmt.Printf("error reading file: %s", err.Error())
 		return
 	}
-	start := time.Now()
-	fmt.Println("Running Day 5, Part 1")
-	fmt.Println("Result: ", Part1(input))
-	fmt.Println("Running time: ", time.Since(start))
 
-	start = time.Now()
-	fmt.Println("Running Day 5, Part 2")
-	fmt.Println("Result: ", Part2(input))
-	fmt.Println("Running time: ", time.Since(start))
+	util.PrettyPrint(5, 1, Part1(input), time.Now())
+	util.PrettyPrint(5, 2, Part2(input), time.Now())
 }
 
 type Seed struct {

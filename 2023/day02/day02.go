@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/advent-of-code/2023/util"
 )
@@ -15,11 +16,8 @@ func Run() {
 		return
 	}
 
-	fmt.Println("Running Day 2, Part 1")
-	fmt.Println("Result: ", Part1(input))
-
-	fmt.Println("Running Day 2, Part 2")
-	fmt.Println("Result: ", Part2(input))
+	util.PrettyPrint(2, 1, Part1(input), time.Now())
+	util.PrettyPrint(2, 2, Part2(input), time.Now())
 }
 
 type Game struct {
