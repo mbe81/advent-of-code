@@ -19,6 +19,6 @@ func PrettyPrint(day, part, result int, start time.Time) {
 
 	fmt.Println(" Running day", day, "part", part)
 	fmt.Println("  - Result:", result)
-	fmt.Println("  - Running time:", time.Since(start))
+	fmt.Println("  - Runtime:", time.Since(start))
 	fmt.Println()
 }
