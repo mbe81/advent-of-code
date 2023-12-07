@@ -27,7 +27,6 @@ func Run() {
 }
 
 type Hand struct {
-	CardList       string
 	CardQuantities []CardQuantity
 	Cards          []CardType
 	HandResult     HandResult
@@ -250,7 +249,6 @@ func parseHands(input []string, part int) []Hand {
 		s := strings.Fields(l)
 
 		// Set cards
-		h.CardList = s[0]
 		cardList := s[0]
 		for i := 0; i < len(cardList); i++ {
 			var cardType CardType
