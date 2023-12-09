@@ -26,13 +26,11 @@ func Run() {
 }
 
 func Part1(input []string) int {
-
 	sensorValues := parseSensorValues(input)
 	totalPredictedValue := 0
 
 	for _, sensorRow := range sensorValues {
-
-		differences := calculateDifference(sensorRow)
+		differences := calculateDifferences(sensorRow)
 
 		nextIncrease := 0
 		for j := len(differences) - 1; j > 0; j-- {
@@ -53,8 +51,7 @@ func Part2(input []string) int {
 	totalPredictedValue := 0
 
 	for _, sensorRow := range sensorValues {
-
-		differences := calculateDifference(sensorRow)
+		differences := calculateDifferences(sensorRow)
 
 		nextDecrease := 0
 		for j := len(differences) - 1; j > 0; j-- {
@@ -64,6 +61,7 @@ func Part2(input []string) int {
 
 		firstValue := sensorRow[0]
 		predictedValue := firstValue - nextDecrease
+
 		totalPredictedValue += predictedValue
 	}
 
@@ -86,28 +84,22 @@ func parseSensorValues(input []string) [][]int {
 	return sensorValues
 }
 
-func calculateDifference(sensorValues []int) [][]int {
+func calculateDifferences(sensorValues []int) [][]int {
 
 	var differences [][]int
 	differences = append(differences, sensorValues)
 	i := 0
 	for {
 		var differenceRow []int
-		var differenceSum = 0
 		for j := 0; j < len(differences[i])-1; j++ {
-			differenceSum += differences[i][j+1] - differences[i][j]
 			differenceRow = append(differenceRow, differences[i][j+1]-differences[i][j])
-		}
-		if differenceSum == 0 {
-			break
 		}
 		differences = append(differences, differenceRow)
 		i++
-	}
 
-	nextDecrease := 0
-	for j := len(differences) - 1; j > 0; j-- {
-		nextDecrease = differences[j][0] - nextDecrease
+		if len(differenceRow) == 1 {
+			break
+		}
 	}
 
 	return differences
