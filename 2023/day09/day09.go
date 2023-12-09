@@ -11,7 +11,7 @@ import (
 )
 
 func Run() {
-	input, err := util.ReadLines("./day09/input/example.txt")
+	input, err := util.ReadLines("./day09/input/input.txt")
 	if err != nil {
 		fmt.Printf("error reading file: %s", err.Error())
 		return
@@ -22,8 +22,8 @@ func Run() {
 	start = time.Now()
 	util.PrettyPrint(9, 1, Part1(input), start)
 
-	//start = time.Now()
-	//util.PrettyPrint(9, 2, Part2(input), start)
+	start = time.Now()
+	util.PrettyPrint(9, 2, Part2(input), start)
 }
 
 func Part1(input []string) int {
