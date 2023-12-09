@@ -2,6 +2,7 @@ package day09
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -21,86 +22,71 @@ func Run() {
 	start = time.Now()
 	util.PrettyPrint(9, 1, Part1(input), start)
 
-	start = time.Now()
-	util.PrettyPrint(9, 2, Part2(input), start)
+	//start = time.Now()
+	//util.PrettyPrint(9, 2, Part2(input), start)
 }
 
 func Part1(input []string) int {
-	sensorValues := parseSensorValues(input)
-	totalPredictedValue := 0
+	var totalPrediction int
 
-	for _, sensorRow := range sensorValues {
-		differences := calculateDifferences(sensorRow)
-
-		nextIncrease := 0
-		for j := len(differences) - 1; j > 0; j-- {
-			nextIncrease += differences[j][len(differences[j])-1]
-		}
-
-		lastValue := sensorRow[len(sensorRow)-1]
-		predictedValue := lastValue + nextIncrease
-
-		totalPredictedValue += predictedValue
+	for _, sensorValues := range parseSensorValues(input, false) {
+		totalPrediction += predictNextValue(sensorValues)
 	}
 
-	return totalPredictedValue
+	return totalPrediction
 }
 
 func Part2(input []string) int {
-	sensorValues := parseSensorValues(input)
-	totalPredictedValue := 0
+	var totalPrediction int
 
-	for _, sensorRow := range sensorValues {
-		differences := calculateDifferences(sensorRow)
-
-		nextDecrease := 0
-		for j := len(differences) - 1; j > 0; j-- {
-			previousDecrease := nextDecrease
-			nextDecrease = differences[j][0] - previousDecrease
-		}
-
-		firstValue := sensorRow[0]
-		predictedValue := firstValue - nextDecrease
-
-		totalPredictedValue += predictedValue
+	for _, sensorValues := range parseSensorValues(input, true) {
+		totalPrediction += predictNextValue(sensorValues)
 	}
 
-	return totalPredictedValue
+	return totalPrediction
 }
 
-func parseSensorValues(input []string) [][]int {
+func parseSensorValues(input []string, reverse bool) [][]int {
 	var sensorValues [][]int
 
 	for _, l := range input {
 		var s []int
-		sString := strings.Fields(l)
-		for i := range sString {
-			sensorValue, _ := strconv.Atoi(sString[i])
+
+		for _, val := range strings.Fields(l) {
+			sensorValue, _ := strconv.Atoi(val)
 			s = append(s, sensorValue)
 		}
+
+		if reverse {
+			slices.Reverse(s)
+		}
+
 		sensorValues = append(sensorValues, s)
 	}
 
 	return sensorValues
 }
 
-func calculateDifferences(sensorValues []int) [][]int {
-
+func predictNextValue(sensorValues []int) int {
 	var differences [][]int
-	differences = append(differences, sensorValues)
-	i := 0
-	for {
-		var differenceRow []int
-		for j := 0; j < len(differences[i])-1; j++ {
-			differenceRow = append(differenceRow, differences[i][j+1]-differences[i][j])
-		}
-		differences = append(differences, differenceRow)
-		i++
 
-		if len(differenceRow) == 1 {
+	currentDiffs := sensorValues
+	for {
+		var nextDiffs []int
+		for j := 0; j < len(currentDiffs)-1; j++ {
+			nextDiffs = append(nextDiffs, currentDiffs[j+1]-currentDiffs[j])
+		}
+		differences = append(differences, nextDiffs)
+		currentDiffs = nextDiffs
+		if len(nextDiffs) == 1 {
 			break
 		}
 	}
 
-	return differences
+	predictedValue := sensorValues[len(sensorValues)-1] // Last known value
+	for j := len(differences) - 1; j >= 0; j-- {
+		predictedValue += differences[j][len(differences[j])-1] // Add all increases
+	}
+
+	return predictedValue
 }
