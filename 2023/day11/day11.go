@@ -6,11 +6,10 @@ import (
 	"time"
 
 	"github.com/advent-of-code/2023/util"
-	"github.com/advent-of-code/2023/util/math"
 )
 
 func Run() {
-	input, err := util.ReadLines("./day11/input/example.txt")
+	input, err := util.ReadLines("./day11/input/input.txt")
 	if err != nil {
 		fmt.Printf("error reading file: %s", err.Error())
 		return
@@ -27,31 +26,44 @@ func Run() {
 
 func Part1(input []string) int {
 	galaxies := parseImage(input)
-	var totalSteps = 0
+
+	expansionFactor := 2
+	totalSteps := 0
+
 	for i, g := range galaxies {
 		for j, h := range galaxies {
-			if i < j { // only calculate each distance once
-				minSteps := math.Abs(g.y-h.y) + math.Abs(g.x-h.x)
-				totalSteps += minSteps
-				//fmt.Println("Calculate g1:", g, ", g2:", h, ", steps", minSteps)
+			if i < j { // only calculate each connection once
+				totalSteps += calculateDistance(g, h, expansionFactor, input)
 			}
 		}
 	}
+
 	return totalSteps
 }
 
 func Part2(input []string) int {
+	galaxies := parseImage(input)
 
-	return 0
+	expansionFactor := 1000000
+	totalSteps := 0
+
+	for i, g := range galaxies {
+		for j, h := range galaxies {
+			if i < j { // only calculate each connection once
+				totalSteps += calculateDistance(g, h, expansionFactor, input)
+			}
+		}
+	}
+
+	return totalSteps
 }
 
 type Galaxy struct {
-	y int
-	x int
+	Y int
+	X int
 }
 
 func parseImage(input []string) []Galaxy {
-
 	// duplicate rows without galaxies
 	for y := 0; y < len(input); y++ {
 		var galaxyFound = false
@@ -61,11 +73,7 @@ func parseImage(input []string) []Galaxy {
 			}
 		}
 		if !galaxyFound {
-			part1 := input[:y]
-			part2 := input[y:]
-			input = append(part1, strings.Repeat(".", len(input[y])))
-			input = append(input, part2...)
-			y = y + 1
+			input[y] = strings.Repeat("-", len(input[y]))
 		}
 		galaxyFound = false
 	}
@@ -78,17 +86,20 @@ func parseImage(input []string) []Galaxy {
 				galaxyFound = true
 			}
 		}
-
 		if !galaxyFound {
 			for y := 0; y < len(input); y++ {
-				input[y] = input[y][:x] + "." + input[y][x:]
+				if input[y][x] == '.' {
+					input[y] = input[y][:x] + "|" + input[y][x+1:]
+				} else if input[y][x] == '-' {
+					input[y] = input[y][:x] + "+" + input[y][x+1:]
+				}
 			}
-			x = x + 1
 		}
 		galaxyFound = false
 	}
 
 	var galaxies []Galaxy
+
 	for y := 0; y < len(input); y++ {
 		for x := 0; x < len(input[y]); x++ {
 			if input[y][x] == '#' {
@@ -96,6 +107,26 @@ func parseImage(input []string) []Galaxy {
 			}
 		}
 	}
-
 	return galaxies
+}
+
+func calculateDistance(a, b Galaxy, expansionFactor int, input []string) int {
+	var steps int
+
+	for k := min(a.Y, b.Y); k < max(a.Y, b.Y); k++ {
+		if input[k][a.X] == '-' || input[k][a.X] == '+' {
+			steps = steps + expansionFactor
+		} else {
+			steps++
+		}
+	}
+
+	for k := min(a.X, b.X); k < max(a.X, b.X); k++ {
+		if input[a.Y][k] == '|' || input[a.Y][k] == '+' {
+			steps = steps + expansionFactor
+		} else {
+			steps++
+		}
+	}
+	return steps
 }

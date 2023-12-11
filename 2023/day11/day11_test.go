@@ -29,7 +29,7 @@ func TestPart2(t *testing.T) {
 	}
 
 	got := Part2(input)
-	want := 71503
+	want := 82000210
 
 	if got != want {
 		t.Errorf("got %q, wanted %q", got, want)
