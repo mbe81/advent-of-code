@@ -18,7 +18,7 @@ func TestPart1(t *testing.T) {
 	want := 142
 
 	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
+		t.Errorf("got %d, wanted %d", got, want)
 	}
 }
 
@@ -33,6 +33,6 @@ func TestPart2(t *testing.T) {
 	want := 281
 
 	if got != want {
-		t.Errorf("got %q, wanted %q", got, want)
+		t.Errorf("got %d, wanted %d", got, want)
 	}
 }
