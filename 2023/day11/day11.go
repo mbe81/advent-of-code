@@ -18,10 +18,10 @@ func Run() {
 	var start time.Time
 
 	start = time.Now()
-	util.PrettyPrint(9, 1, Part1(input), start)
+	util.PrettyPrint(11, 1, Part1(input), start)
 
 	start = time.Now()
-	util.PrettyPrint(9, 2, Part2(input), start)
+	util.PrettyPrint(11, 2, Part2(input), start)
 }
 
 func Part1(input []string) int {
