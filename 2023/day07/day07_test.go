@@ -15,7 +15,7 @@ func TestPart1(t *testing.T) {
 	}
 
 	got := Part1(input)
-	want := 6640
+	want := 6440
 	if got != want {
 		t.Errorf("got %d, wanted %d", got, want)
 	}
