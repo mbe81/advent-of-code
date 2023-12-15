@@ -1,4 +1,4 @@
-package math
+package mathutil
 
 // Abs returns te positive value of an integer
 func Abs(x int) int {

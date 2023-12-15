@@ -1,4 +1,4 @@
-package math
+package mathutil
 
 // GCD returns greatest common divisor (GCD) via Euclidean algorithm
 func GCD(a, b int) int {

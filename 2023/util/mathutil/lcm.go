@@ -1,4 +1,4 @@
-package math
+package mathutil
 
 // LCM returns least Common Multiple via GCD
 func LCM(a, b int, integers ...int) int {

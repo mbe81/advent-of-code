@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/advent-of-code/2023/util"
-	"github.com/advent-of-code/2023/util/math"
+	"github.com/advent-of-code/2023/util/mathutil"
 )
 
 func Run() {
@@ -109,7 +109,7 @@ func Part2(input []string) int {
 		numbers = append(numbers, ghost.StepsToLoop)
 	}
 
-	return math.LCM(numbers[0], numbers[1], numbers[2:]...)
+	return mathutil.LCM(numbers[0], numbers[1], numbers[2:]...)
 }
 
 func parseMap(input []string) (steps string, nodes map[string]Node) {
