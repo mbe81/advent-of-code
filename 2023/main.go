@@ -17,6 +17,8 @@ import (
 	"github.com/advent-of-code/2023/day11"
 	"github.com/advent-of-code/2023/day12"
 	"github.com/advent-of-code/2023/day13"
+	"github.com/advent-of-code/2023/day14"
+	"github.com/advent-of-code/2023/day15"
 )
 
 func main() {
@@ -52,6 +54,10 @@ func main() {
 		day12.Run()
 	case 13:
 		day13.Run()
+	case 14:
+		day14.Run()
+	case 15:
+		day15.Run()
 	case -1:
 		day01.Run()
 		day02.Run()
@@ -65,6 +71,8 @@ func main() {
 		day11.Run()
 		day12.Run()
 		day13.Run()
+		day14.Run()
+		day15.Run()
 	default:
 		fmt.Println("Use 'go run main.go -day <day> to run a day")
 	}
