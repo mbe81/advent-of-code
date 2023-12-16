@@ -34,7 +34,6 @@ const (
 )
 
 func Part1(input []string) int {
-
 	grid := parseGrid(input)
 	grid = tiltRocks(grid, North)
 
@@ -42,12 +41,11 @@ func Part1(input []string) int {
 }
 
 func Part2(input []string) int {
+	var totalCycles = 1000000000
+	var cycleStart, cycleEnd int
 
 	grid := parseGrid(input)
 	hashes := make([]string, 0)
-
-	var totalCycles = 1000000000
-	var cycleStart, cycleEnd int
 
 	for i := 0; i < totalCycles; i++ {
 		grid = tiltRocks(grid, North)
@@ -63,8 +61,8 @@ func Part2(input []string) int {
 	}
 
 	cycleLength := cycleEnd - cycleStart
-	remainingSteps := totalCycles - cycleEnd
-	for i := 0; i < remainingSteps%cycleLength-1; i++ {
+	remainingCycles := totalCycles - cycleEnd
+	for i := 0; i < remainingCycles%cycleLength-1; i++ {
 		grid = tiltRocks(grid, North)
 		grid = tiltRocks(grid, West)
 		grid = tiltRocks(grid, South)
@@ -79,6 +77,7 @@ func parseGrid(input []string) [][]rune {
 	for i := range input {
 		grid[i] = []rune(input[i])
 	}
+
 	return grid
 }
 
@@ -93,6 +92,7 @@ func tiltRocks(grid [][]rune, direction string) [][]rune {
 			grid = rollRocks(grid, direction)
 		}
 	}
+	
 	return grid
 }
 
@@ -148,8 +148,7 @@ func rollRocks(grid [][]rune, direction string) [][]rune {
 }
 
 func calculateLoad(grid [][]rune) int {
-	var load int
-
+	load := 0
 	for i := 0; i < len(grid); i++ {
 		rocks := strings.Count(string(grid[i]), "O")
 		if rocks > 0 {
@@ -162,7 +161,6 @@ func calculateLoad(grid [][]rune) int {
 
 func detectCycle(grid [][]rune, hashes []string) ([]string, int) {
 	hash := calculateHash(grid)
-
 	for i := range hashes {
 		if hashes[i] == hash {
 			return hashes, i
@@ -178,5 +176,6 @@ func calculateHash(input [][]rune) string {
 	for i := range input {
 		hash.Write([]byte(string(input[i])))
 	}
+
 	return hex.EncodeToString(hash.Sum(nil))
 }
