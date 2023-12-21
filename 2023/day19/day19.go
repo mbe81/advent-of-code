@@ -120,8 +120,6 @@ func parseInput(input []string) (map[string][]WorkflowRule, []Part) {
 
 	}
 
-	fmt.Println(workflows)
-
 	return workflows, parts
 }
 
