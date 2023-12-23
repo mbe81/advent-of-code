@@ -103,7 +103,7 @@ func simulateBrickFall(bricks []Brick, removedBrickID int) int {
 				zFallen++
 			}
 
-			// Move the brick
+			// Move the brick to the new position
 			if zFallen > 0 {
 				bricks[i].Start.Z = bricks[i].Start.Z - zFallen
 				bricks[i].End.Z = bricks[i].End.Z - zFallen
@@ -165,9 +165,9 @@ func parseBricks(input []string) []Brick {
 }
 
 func parseCoordinate(s string) Coordinate {
-	var c Coordinate
-
 	ss := strings.Split(s, ",")
+
+	var c Coordinate
 	c.X, _ = strconv.Atoi(ss[0])
 	c.Y, _ = strconv.Atoi(ss[1])
 	c.Z, _ = strconv.Atoi(ss[2])
@@ -183,5 +183,6 @@ func createStackPile(x, y, z int) [][][]int {
 			stackPile[i][j] = make([]int, z)
 		}
 	}
+	
 	return stackPile
 }
