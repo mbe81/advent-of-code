@@ -92,7 +92,7 @@ func tiltRocks(grid [][]rune, direction string) [][]rune {
 			grid = rollRocks(grid, direction)
 		}
 	}
-	
+
 	return grid
 }
 
